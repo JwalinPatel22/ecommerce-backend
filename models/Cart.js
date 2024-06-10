@@ -7,21 +7,22 @@ const CartSchema = new mongoose.Schema({
         ref: 'user',
     },
     
-    productId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'product',
-        required: true
-    },
+    items: [{
+        productId: {
+            type: mongoose.Types.ObjectId,
+            ref: 'product',
+            required: true
+        },
     
-    qty: {
-        type: Number,
-        required: true,
-        min: [1, "Quantity cannot be less than 1"]
-    },  
-
-    price: Number,
+        qty: {
+            type: Number,
+            required: true,
+            min: [1, "Quantity cannot be less than 1"]
+        },  
     
+        price: Number,
+    }]
 });
 
-const Product = mongoose.model("Product", ProductSchema);
-module.exports = Product;
+const Cart = mongoose.model("Cart", CartSchema);
+module.exports = Cart;
