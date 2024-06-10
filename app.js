@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const { isAdmin } = require('./middleware/auth')
 // const User = require('./models/User');
 
 // const bcrypt = require('bcrypt');
@@ -18,6 +20,7 @@ mongoose.connect("mongodb://localhost:27017/ecomDB");
 
 //routes
 app.use('/', authRoutes);
+app.use('/', isAdmin, productRoutes);
 
 app.listen(3000, function(req, res){
     console.log("app started successfully on port 3000");

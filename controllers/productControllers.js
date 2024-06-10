@@ -1,12 +1,12 @@
-const express = require('expres');
+const express = require('express');
 const Product = require('../models/Product');
 
-const getProducts = async (req, res) => {
+const getProducts = async function (req, res) {
     const allProducts = await Product.find({});
     res.json(allProducts);
 }
 
-const createProduct = async (req, res) => {
+const createProduct = async function (req, res) {
     const { title, description, price } = req.body;
 
     try{
@@ -17,7 +17,7 @@ const createProduct = async (req, res) => {
         });
 
         await newProduct.save();
-        res.alert("Product Saved");
+        res.send("Product Saved");
     }
     catch(error){
         console.log(error);
@@ -25,7 +25,7 @@ const createProduct = async (req, res) => {
     }
 }
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async function (req, res) {
     const title = req.body;
 
     const isProduct = await Product.findOne({title: title});
@@ -38,7 +38,7 @@ const deleteProduct = async (req, res) => {
         res.status(200).json({msg: "Product succesfully deleted"});
     }
     catch(error){
-        res.status(500).alert({error: "Failed To delete product"});
+        res.status(500).send({error: "Failed To delete product"});
     }
 }
 // const deleteProduct = asyncHandler(async(req,res) => {
@@ -53,7 +53,7 @@ const deleteProduct = async (req, res) => {
 //     }
 // });
 
-const updateProduct = async (req, res) => {
+const updateProduct = async function (req, res) {
     try{
         const { title, description, price } = req.body;
         const updatedProduct = await Product.findByIdAndUpadate(
