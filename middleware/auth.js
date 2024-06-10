@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-const isAdmin = async(req, res, next) => {
+const isAdmin = async function(req, res, next){
     try{
         const user = await User.findById(req.user.id);
         if(user && user.isAdmin){

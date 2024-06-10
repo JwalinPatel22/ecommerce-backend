@@ -7,13 +7,14 @@ const getProducts = async function (req, res) {
 }
 
 const createProduct = async function (req, res) {
-    const { title, description, price } = req.body;
+    const { title, description, price, qty } = req.body;
 
     try{
         const newProduct = new Product({
             title: title,
             description: description,
             price: price,
+            qty: qty
         });
 
         await newProduct.save();
@@ -38,7 +39,7 @@ const deleteProduct = async function (req, res) {
         res.status(200).json({msg: "Product succesfully deleted"});
     }
     catch(error){
-        res.status(500).send({error: "Failed To delete product"});
+        res.status(500).json({error: "Failed To delete product"});
     }
 }
 // const deleteProduct = asyncHandler(async(req,res) => {
