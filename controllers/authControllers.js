@@ -8,7 +8,7 @@ const registerUser = async function(req, res){
 
     existingUser = await User.findOne({email: email});
     if(existingUser){
-        res.status(400).alert("User already exists");
+        res.status(400).send("User already exists");
     }
     else{
         bcrypt.hash(password, saltRounds, function(err, hash){
@@ -24,7 +24,7 @@ const registerUser = async function(req, res){
             }
             catch(error){
                 console.log(error);
-                res.status(500).alert("cannot register user");   
+                res.status(500).send("cannot register user");   
             } 
         });
     }
@@ -46,12 +46,12 @@ const loginUser = async function(req, res){
                 }                
             }
             else{
-                res.status(400).alert("incorrect password");
+                res.status(400).send("incorrect password");
             }
         });
     }
     else{
-        res.status(400).alert("user not registered");
+        res.status(400).send("user not registered");
     }         
 }
 

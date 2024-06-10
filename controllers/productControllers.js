@@ -7,14 +7,13 @@ const getProducts = async (req, res) => {
 }
 
 const createProduct = async (req, res) => {
-    const { title, description, price, imgurl } = req.body;
+    const { title, description, price } = req.body;
 
     try{
         const newProduct = new Product({
             title: title,
             description: description,
             price: price,
-            imgUrl: imgurl
         });
 
         await newProduct.save();
@@ -22,7 +21,7 @@ const createProduct = async (req, res) => {
     }
     catch(error){
         console.log(error);
-        res.status(500).alert("Failed to create product");
+        res.status(500).json({error: "Failed to create product"});
     }
 }
 
@@ -31,15 +30,15 @@ const deleteProduct = async (req, res) => {
 
     const isProduct = await Product.findOne({title: title});
     if(!isProduct){
-        res.status(400).alert("Product doesn't exist");
+        res.status(400).json({error: "Product doesn't exist"});
     }
 
     try{
         await Product.deleteOne({title: title});
-        res.status(200).alert("Product succesfully deleted");
+        res.status(200).json({msg: "Product succesfully deleted"});
     }
     catch(error){
-        res.status(500).alert("Failed To delete product");
+        res.status(500).alert({error: "Failed To delete product"});
     }
 }
 // const deleteProduct = asyncHandler(async(req,res) => {
@@ -54,4 +53,24 @@ const deleteProduct = async (req, res) => {
 //     }
 // });
 
-module.exports = { getProducts, createProduct, deleteProduct };
+const updateProduct = async (req, res) => {
+    try{
+        const { title, description, price } = req.body;
+        const updatedProduct = await Product.findByIdAndUpadate(
+            req.params.id,
+            { title, description, price },
+            { new: true }
+        );
+
+        if(!updatedProduct){
+            return res.status(404).json({error: "Product not found"});
+        }
+        res.status(200).json({msg: "Product Updated"});  
+    }
+    catch (error){
+        console.log(error);
+        res.status(500).json({error: "Something went wrong"});
+    }
+}
+
+module.exports = { getProducts, createProduct, deleteProduct, updateProduct };
