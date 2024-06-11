@@ -20,7 +20,8 @@ const registerUser = async function(req, res){
             });
             try{
                 newUser.save(); 
-                res.render('registerSuccess'); 
+                res.json(newUser);
+                // res.render('registerSuccess');
             }
             catch(error){
                 console.log(error);

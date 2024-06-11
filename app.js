@@ -16,10 +16,11 @@ const app = express();
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/ecomDB");
 
 //routes
-app.use('/', userRoutes);
+app.use('/user', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 

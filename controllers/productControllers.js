@@ -18,17 +18,26 @@ const getProduct = async function (req, res){
 
 const createProduct = async function (req, res) {
     const { title, description, price, qty } = req.body;
-
     try{
-        const newProduct = new Product({
-            title: title,
-            description: description,
-            price: price,
-            qty: qty
-        });
+    
+    const existingProduct = await Product.findOne({title: title});
 
-        await newProduct.save();
-        res.send("Product Saved");
+        if(existingProduct){
+            existingProduct.qty += qty;
+            await existingProduct.save();
+            res.send("Product quantity updated");
+        }
+        else{
+            const newProduct = new Product({
+                title: title,
+                description: description,
+                price: price,
+                qty: qty
+            });
+            
+            await newProduct.save();
+            res.send("Product Saved");
+        }
     }
     catch(error){
         console.log(error);
