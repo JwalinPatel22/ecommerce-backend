@@ -4,13 +4,15 @@ const Product = require('../models/Product');
 
 const getCart = async function(req, res){
     try{
-        const cart = Cart.findOne({userId: req.user._id}).populate('item.productId');
-        res.status(200).json({msg: 'ok', cart}); 
-        res.render('cart', { cart }); 
+        const cart = await Cart.findOne({userId: req.user._id}).populate('item.productId');
+        if(!cart){
+            res.staus(404).json({error: "Cart not found"});
+        }
+        res.status(200).json({cart});
     }
     catch(error){
         console.log(error);
-        res.status(500).json({msg: "Something went wrong getcart"});
+        res.status(500).json({msg: "Failed to get cart"});
     }    
 }
 
@@ -32,11 +34,11 @@ const addToCart = async function(req, res){
             cart.items.push({ productId, quantity: 1 });
         }
         await cart.save();
-        res.redirect('/cart');
+        res.json({cart});
     }
     catch(error){
         console.log(error);
-        res.status(500).json({error: "Something went wrong addtocart"});
+        res.status(500).json({error: "Failed to add item to cart"});
     }
 }
 
@@ -47,12 +49,11 @@ const removeFromCart = async function(req, res){
         //removing required product from cart
         cart.items = cart.items.filter(item => item.productId.toString() !== productId);
         await cart.save();
-        res.json(cart); 
-        res.redirect('/cart')
+        res.json(cart);
     }
     catch(error){
         console.log(error);
-        res.status(500).send("Cannot remove item from cart removefromcart");
+        res.status(500).json({error: "Cannot remove item from cart"});
     }
 }
 
