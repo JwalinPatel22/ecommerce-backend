@@ -16,6 +16,7 @@ const getProduct = async function (req, res){
     }
 }
 
+
 const createProduct = async function (req, res) {
     const { title, brand, description, price, qty } = req.body;
     try{
@@ -46,6 +47,7 @@ const createProduct = async function (req, res) {
     }
 }
 
+
 const deleteProduct = async function (req, res) {
 
     const isProduct = await Product.findById(req.params.id);
@@ -61,17 +63,7 @@ const deleteProduct = async function (req, res) {
         res.status(500).json({error: "Failed To delete product"});
     }
 }
-// const deleteProduct = asyncHandler(async(req,res) => {
-//     const product = await Product.findById(req.params.id)
 
-//     if(product) {
-//         await product.remove()
-//         res.json({message:'Product removed'})
-//     } else {
-//         res.status(404)
-//         throw new Error('Product not found')
-//     }
-// });
 
 const updateProduct = async function (req, res) {
     try{

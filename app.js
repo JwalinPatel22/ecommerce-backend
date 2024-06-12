@@ -21,7 +21,7 @@ mongoose.connect("mongodb://localhost:27017/ecomDB");
 
 //routes
 app.use('/user', userRoutes);
-app.use('/products', productRoutes);
+app.use('/', productRoutes);
 app.use('/cart', cartRoutes);
 
 app.listen(3000, function(req, res){

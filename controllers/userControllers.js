@@ -47,7 +47,7 @@ const loginUser = async function(req, res){
                 }                
             }
             else{
-                res.status(400).send("incorrect password");
+                res.status(400).send("Incorrect password");
             }
         });
     }
@@ -56,4 +56,15 @@ const loginUser = async function(req, res){
     }         
 }
 
-module.exports = { registerUser, loginUser };
+const getAllUsers = async function(req, res){
+    try{
+        const allUsers = await User.find({});
+        res.status(200).json(allUsers);  
+    }
+    catch(error){
+        res.status(500).json({error: "Error getting users"});
+    }
+    
+}
+
+module.exports = { registerUser, loginUser, getAllUsers };
