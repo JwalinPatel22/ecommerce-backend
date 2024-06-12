@@ -5,7 +5,14 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minlength: 1,
+    },
+
+    brand:{
+        type: String,
+        required: true,
     },
 
     description: {
@@ -15,7 +22,8 @@ const ProductSchema = new mongoose.Schema({
 
     price: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
     },  
 
     date_added: {
@@ -25,7 +33,8 @@ const ProductSchema = new mongoose.Schema({
 
     qty: {
         type: Number,
-        default: 1
+        default: 1,
+        min: 0,
     }
 });
 

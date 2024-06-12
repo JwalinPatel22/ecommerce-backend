@@ -17,10 +17,10 @@ const getProduct = async function (req, res){
 }
 
 const createProduct = async function (req, res) {
-    const { title, description, price, qty } = req.body;
+    const { title, brand, description, price, qty } = req.body;
     try{
     
-    const existingProduct = await Product.findOne({title: title});
+    const existingProduct = await Product.findOne({title: title, brand: brand});
 
         if(existingProduct){
             existingProduct.qty += qty;
@@ -30,13 +30,14 @@ const createProduct = async function (req, res) {
         else{
             const newProduct = new Product({
                 title: title,
+                brand: brand,
                 description: description,
                 price: price,
                 qty: qty
             });
             
             await newProduct.save();
-            res.send("Product Saved");
+            res.send("Product Created");
         }
     }
     catch(error){

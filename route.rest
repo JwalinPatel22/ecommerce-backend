@@ -17,7 +17,7 @@ Content-Type: application/json
     "title": "amd 5700xt",
     "description": "fastest gpu*",
     "price": 23000,
-    "qty": 1
+    "qty": 6
 }
 
 ###
