@@ -20,8 +20,7 @@ const registerUser = async function(req, res){
             });
             try{
                 newUser.save(); 
-                res.json(newUser);
-                // res.render('registerSuccess');
+                res.send("registeration successful");
             }
             catch(error){
                 console.log(error);
@@ -40,7 +39,8 @@ const loginUser = async function(req, res){
         bcrypt.compare(password, validUser.password, function(error, result){
             if(result){
                 if(validUser.isAdmin){
-                    res.render("admin");
+                    res.send("admin access");
+                    // res.render("admin");
                 }
                 else{
                     res.render("secrets");
