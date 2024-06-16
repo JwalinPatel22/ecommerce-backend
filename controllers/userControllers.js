@@ -20,7 +20,7 @@ const registerUser = async function(req, res){
             });
             try{
                 newUser.save(); 
-                res.send("registeration successful");
+                res.send("registeration successful"); 
             }
             catch(error){
                 console.log(error);
