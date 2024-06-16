@@ -1,4 +1,3 @@
-//jshint esversion:6
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -6,10 +5,13 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-// const User = require('./models/User');
+const cors = require('cors');
 
-// const bcrypt = require('bcrypt');
-// const saltRounds = 10;
+app.use(cors({
+    origin: "*",
+    credentials: true
+}))
+
 
 
 const app = express();
