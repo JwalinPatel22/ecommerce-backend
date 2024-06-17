@@ -7,19 +7,18 @@ const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
-
 const app = express();
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/ecomDB");
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 //routes
 app.use("api/", userRoutes);

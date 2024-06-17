@@ -1,41 +1,42 @@
 //jshint esversion:6
 //Products schema
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 1,
-    },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1,
+  },
 
-    brand:{
-        type: String,
-        required: true,
-    },
+  brand: {
+    type: String,
+    required: true,
+  },
 
-    description: {
-        type: String,
-        required: true
-    },
+  description: {
+    type: String,
+    required: true,
+  },
 
-    price: {
-        type: Number,
-        required: true,
-        min: 0,
-    },  
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
 
-    date_added: {
-        type: Date,
-        default: Date.now
-    },
+  date_added: {
+    type: Date,
+    default: Date.now,
+  },
 
-    qty: {
-        type: Number,
-        default: 1,
-        min: 0,
-    }
+  qty: {
+    type: Number,
+    default: 1,
+    min: 0,
+  },
+  img: String,
 });
 
 const Product = mongoose.model("Product", ProductSchema);
