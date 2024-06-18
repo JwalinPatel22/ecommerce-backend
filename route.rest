@@ -36,4 +36,4 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/product/66700685e99b021f5d2f9e22
+GET  http://localhost:3000/api/product/66700639e99b021f5d2f9e16

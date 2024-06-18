@@ -52,10 +52,10 @@ const deleteProduct = async function (req, res) {
   }
 
   try {
-    await Product.deleteOne({ title: title });
+    await Product.deleteOne({_id: req.params.id});
     res.status(200).json({ msg: "Product succesfully deleted" });
   } catch (error) {
-    res.status(500).json({ error: "Failed To delete product" });
+    console.log(error);
   }
 };
 
