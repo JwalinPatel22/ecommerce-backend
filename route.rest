@@ -1,4 +1,4 @@
-POST http://localhost:3000/user/register
+POST http://localhost:3000/api/register
 Content-Type: application/json
 
 {
@@ -10,23 +10,24 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/products/product/
+POST http://localhost:3000/api/product/
 Content-Type: application/json
 
 {
-    "title": "amd 5700xt",
-    "description": "fastest gpu*",
-    "price": 23000,
-    "qty": 6
+    "title": "ASUS ROG Strix Z490-E Gaming",
+    "brand": "ASUS",
+    "description": "Advanced motherboard for gaming and overclocking",
+    "price": 28000,
+    "qty": 8
 }
 
 ###
 
-GET http://localhost:3000/products/products/
+GET http://localhost:3000/api/products/
 
 
 ###
-POST http://localhost:3000/user/login 
+POST http://localhost:3000/api/login 
 Content-Type: application/json
 
 {
@@ -35,13 +36,4 @@ Content-Type: application/json
 }
 
 ###
-
-POST http://localhost:3000/user/register 
-Content-Type: application/json
-
-{
-    "firstname": "fname",
-    "lastname": "lname",
-    "email": "e@mail.com",
-    "password": "asdfasdf"
-}
+GET http://localhost:3000/api/product/66700685e99b021f5d2f9e22
