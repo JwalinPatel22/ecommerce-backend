@@ -2,10 +2,10 @@ POST http://localhost:3000/api/register
 Content-Type: application/json
 
 {
-    "firstname": "asl;kjasdf",
+    "firstname": "no",
     "lastname": "yess",
-    "email": "person@asdfyess.com",
-    "password": "personpassword1234"
+    "email": "person@fyess.com",
+    "password": "11111111"
 }
 
 ###
@@ -37,3 +37,11 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:3000/api/product/66700639e99b021f5d2f9e16
+
+###
+
+POST http://localhost:3000/api/cart/add/667172b7402a5aa71991b574
+
+{  
+  "productId": "614ae7b67d95f5c1e0f132e6"// Example ObjectId for the product
+}
