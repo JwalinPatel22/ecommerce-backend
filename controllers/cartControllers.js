@@ -18,10 +18,10 @@ const getCart = async function (req, res) {
 
 const createCart = async function (req, res) {
   try {
-    const {userId, items} = req.body;
+    const { userId, items } = req.body;
     const newCart = new Cart({
       userId,
-      items
+      items,
     });
     const savedCart = await newCart.save();
     res.status(201).json(savedCart);
@@ -31,22 +31,55 @@ const createCart = async function (req, res) {
   }
 };
 
+// const addToCart = async function (req, res) {
+//   try {
+//     const { userId, productId } = req.body;
+//     let cart = await Cart.findOne({ userId });
+
+//     //creating the cart if it doesn't exist already
+//     if (!cart) {
+//       cart = await Cart.create({ userId: userId, items: [] });
+//     }
+
+//     //checking if product already exists or not. If not, adding new product to cart
+//     const existingProductIndex = cart.items.findIndex(
+//       (item) => item.productId.toString() === productId
+//     );
+//     if (existingProductIndex > -1) {
+//       cart.items[existingProductIndex].qty += 1;
+//     } else {
+//       cart.items.push({ productId, qty: 1 });
+//     }
+//     await cart.save();
+//     res.json(cart);
+//   } catch (error) {
+//     console.log("Failed to add product to cart", error);
+//     res.status(500);
+//   }
+// };
+
 const addToCart = async function (req, res) {
   try {
     const { userId, productId } = req.body;
+
+    // Check if productId is provided
+    if (!productId) {
+      return res.status(400).json({ error: "productId is required" });
+    }
+
     let cart = await Cart.findOne({ userId });
 
-    //creating the cart if it doesn't exist already
+    // Creating the cart if it doesn't exist already
     if (!cart) {
       cart = await Cart.create({ userId: req.user._id, items: [] });
     }
 
-    //checking if product already exists or not. If not, adding new product to cart
+    // Check if product already exists or not. If not, add new product to cart
     const existingProductIndex = cart.items.findIndex(
       (item) => item.productId.toString() === productId
     );
     if (existingProductIndex > -1) {
-      cart.items[existingProductIndex].quantity += 1;
+      cart.items[existingProductIndex].qty += 1;
     } else {
       cart.items.push({ productId, qty: 1 });
     }
@@ -54,14 +87,14 @@ const addToCart = async function (req, res) {
     res.json(cart);
   } catch (error) {
     console.log("Failed to add product to cart", error);
-    res.status(500);
+    res.status(500).json({ error: "Failed to add product to cart" });
   }
 };
 
 const updateItemQty = async function (req, res) {
   try {
     const { userId, productId, qty } = req.body;
-    const cart = Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId });
     if (!cart) {
       return res.status(404).json({ error: "Cart not found" });
     }
