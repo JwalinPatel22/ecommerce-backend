@@ -40,6 +40,17 @@ GET  http://localhost:3000/api/product/66700639e99b021f5d2f9e16
 
 ###
 
+POST http://localhost:3000/api/cart/add/
+Content-Type: application/json
+ 
+{
+    "userId": "667172b7402a5aa71991b574",
+    "productId": "66700685e99b021f5d2f9e22"
+}
+
+
+###
+
 PUT http://localhost:3000/api/cart/update/
 Content-Type: application/json
  

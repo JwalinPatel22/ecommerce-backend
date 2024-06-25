@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 const getCart = async function (req, res) {
   try {
     const cart = await Cart.findOne({ userId: req.params.id }).populate(
-      "item.productId"
+      'items.productId'
     );
     if (!cart) {
       res.status(400).json({ error: "Cart not found" });
