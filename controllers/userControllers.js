@@ -5,7 +5,7 @@ const saltRounds = 10;
 
 //generating jwt token
 const generateAuthToken = (user) => {
-  return jwt.sign({ id: user._id, email: user.email }, "JWT_SECRET_#123", {
+  return jwt.sign({ id: user._id, email: user.email }, process.env.SECRET, {
     expiresIn: "1h",
   });
 };
@@ -72,4 +72,18 @@ const getAllUsers = async function (req, res) {
   }
 };
 
-module.exports = { registerUser, loginUser, getAllUsers };
+const getUser = async function (req, res) {
+  const { id } = req.params.id;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.log("Error fetching user", error);
+    res.status(500);
+  }
+};
+
+module.exports = { registerUser, loginUser, getAllUsers, getUser };

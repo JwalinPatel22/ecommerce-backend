@@ -71,7 +71,7 @@ const addToCart = async function (req, res) {
 
     // Creating the cart if it doesn't exist already
     if (!cart) {
-      cart = await Cart.create({ userId: req.user._id, items: [] });
+      cart = await Cart.create({ userId: userId, items: [] });
     }
 
     // Check if product already exists or not. If not, add new product to cart
@@ -104,9 +104,9 @@ const updateItemQty = async function (req, res) {
     if (!item) {
       return res.status(404).json({ error: "Item not found" });
     }
-    item.qty += qty;
+    item.qty = qty;
     await cart.save();
-    res.status(200).json(cart);
+    res.status(200).json(item);
   } catch (error) {
     console.log("Failed to update product quantity", error);
     res.status(500);

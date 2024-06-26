@@ -6,6 +6,8 @@ const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const cors = require("cors");
+require('dotenv').config();
+
 
 const app = express();
 app.use(express.static("public"));
