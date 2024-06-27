@@ -1,16 +1,18 @@
-const User = require('../models/User');
+const jwt = require("jsonwebtoken");
 
-const isAdmin = async function(req, res, next){
-    try{
-        const user = await User.findById(req.user.id);
-        if(user && user.isAdmin){
-            return next();
-        }
-        res.status(403).json({error: "You do not have permission to perform this action"});
+const auth = (req, res, next) => {
+    const token = req.header('x-auth-token');
+    if(!token){
+        return res.status(401).json({msg: "No token found, authorization denied"})
     }
-    catch(error){
-        res.status(500).json({error: error.message});
+
+    try{
+        const decoded = jwt.verify(token, process.env.SECRET);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        res.status(400).json({error: "Invalid Token"})
     }
 }
 
-module.exports = isAdmin;
+module.exports = auth;

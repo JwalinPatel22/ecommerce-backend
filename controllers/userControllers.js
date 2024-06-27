@@ -5,13 +5,13 @@ const saltRounds = 10;
 
 //generating jwt token
 const generateAuthToken = (user) => {
-  return jwt.sign({ id: user._id, email: user.email }, process.env.SECRET, {
+  return jwt.sign({ id: user._id, name: user.name, email: user.email }, process.env.SECRET, {
     expiresIn: "1h",
   });
 };
 
 const registerUser = async function (req, res) {
-  const { fname, lname, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   existingUser = await User.findOne({ email: email });
   if (existingUser) {
@@ -19,8 +19,7 @@ const registerUser = async function (req, res) {
   } else {
     bcrypt.hash(password, saltRounds, function (err, hash) {
       const newUser = new User({
-        firstname: fname,
-        lastname: lname,
+        name: name,
         email: email,
         password: hash,
       });
@@ -51,12 +50,12 @@ const loginUser = async function (req, res) {
     //comparing passoword
     const validPassword = await bcrypt.compare(password, validUser.password);
     if (!validPassword) {
-      return res.status(400).jspn({ msg: "Incorrect password" });
+      return res.status(400).json({ msg: "Incorrect password" });
     }
 
     //generating jwt token
     const token = generateAuthToken(validUser);
-    res.header("x-auth-token", token).json({ msg: "Login successful" });
+    res.header("x-auth-token", token).json({ msg: "Login successful", token: token });
   } catch (error) {
     console.log("Login Failed", error);
     res.status(500);
