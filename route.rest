@@ -75,4 +75,11 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/api/cart/667d31e629e2744ced1e03f1
+POST http://localhost:3000/admin/newAdmin
+Content-Type: application/json
+
+{
+    "adminName": "Admin 1",
+    "adminEmail": "1@admin.com",
+    "password": "11111111"
+}
