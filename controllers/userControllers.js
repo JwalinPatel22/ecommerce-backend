@@ -15,7 +15,7 @@ const registerUser = async function (req, res) {
 
   existingUser = await User.findOne({ email: email });
   if (existingUser) {
-    res.status(400).send("User already exists");
+    res.status(400).json({msg: "User already exists"});
   } else {
     bcrypt.hash(password, saltRounds, function (err, hash) {
       const newUser = new User({
@@ -26,9 +26,7 @@ const registerUser = async function (req, res) {
       try {
         newUser.save();
         const token = generateAuthToken(newUser);
-        res
-          .header("x-auth-token", token)
-          .json({ msg: "Registeration successful" });
+        res.json({ msg: "Registeration successful", token: token });
       } catch (error) {
         console.log("Cannot register user", error);
         res.status(500);
