@@ -17,7 +17,7 @@ router.get("/users", getAllUsers);
 router.get("/user/:id", getUser);
 
 //for admins
-router.post("/", adminLogin);
+router.post("/login", adminLogin);
 router.post("/newAdmin", createAdmin);
 
 //for products

@@ -102,9 +102,9 @@ const updateProduct = async function (req, res) {
 
 //Admin login
 const adminLogin = async function (req, res) {
-  const { adminName, adminEmail, password } = req.body;
+  const { adminEmail, password } = req.body;
   try {
-    const validAdmin = await Admin.findOne({ adminEmail });
+    const validAdmin = await Admin.findOne({ email: adminEmail });
     if (!validAdmin) {
       return res.status(400).json({ msg: "Admin not found" });
     }
