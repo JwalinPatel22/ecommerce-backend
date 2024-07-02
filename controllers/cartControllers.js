@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 const getCart = async function (req, res) {
   try {
     const cart = await Cart.findOne({ userId: req.params.id }).populate(
-      'items.productId'
+      "items.productId"
     );
     if (!cart) {
       res.status(400).json({ error: "Cart not found" });
@@ -27,6 +27,24 @@ const createCart = async function (req, res) {
     res.status(201).json(savedCart);
   } catch (error) {
     console.log("Failed to create cart", error);
+    res.status(500);
+  }
+};
+
+const clearCart = async function (req, res) {
+  const userId = req.params.id;
+  try {
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ msg: "Cart not found" });
+    }
+
+    cart.items = [];
+    await cart.save();
+    res.status(200).json({ msg: "Cart cleared succesfully" });
+  } catch (error) {
+    console.log("Error clearing cart ", error);
     res.status(500);
   }
 };
@@ -136,4 +154,5 @@ module.exports = {
   addToCart,
   updateItemQty,
   removeFromCart,
+  clearCart,
 };
