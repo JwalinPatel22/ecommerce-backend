@@ -41,7 +41,7 @@ const dispatchOrder = async (req, res) => {
     }
     res.status(201).json(order);
   } catch (error) {
-    res.status(500).json({ error: "Failed to dispatch order" });
+    res.status(500); //{ error: "Failed to dispatch order" }
   }
 };
 

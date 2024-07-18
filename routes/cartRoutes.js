@@ -16,7 +16,7 @@ router.post("/", auth, createCart);
 router.post("/add", auth, addToCart);
 router.patch("/update", auth, updateItemQty);
 router.delete("/delete", auth, removeFromCart);
-router.post("/clear-cart", clearCart);
+router.post("/clear-cart/:id", clearCart);
 
 //creating order
 router.post("/order", auth, createOrder);
