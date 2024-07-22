@@ -1,7 +1,7 @@
-Ecommerce Web application backend.
-Follows RESTful API architecture created with node.js express.js and mongodb
+Ecommerce Web application backend. <br>
+Follows RESTful API architecture created with node.js express.js and mongodb <br><br>
 
-Frontend made using React.js and Tailwind CSS. 
+Frontend made using React.js and Tailwind CSS. <br>
 https://www.github.com/JwalinPatel22/ecommerce-frontend/
 
 
