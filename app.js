@@ -7,12 +7,31 @@ const cartRoutes = require("./routes/cartRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const cors = require("cors");
 require("dotenv").config();
+const uri =
+  "mongodb+srv://hello:<password>@ecommerce-testing.aehaeet.mongodb.net/?retryWrites=true&w=majority&appName=ecommerce-testing";
 
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-mongoose.connect("mongodb://localhost:27017/ecomDB");
+
+const clientOptions = {
+  serverApi: { version: "1", strict: true, deprecationErrors: true },
+};
+async function run() {
+  try {
+    // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
+    await mongoose.connect(uri, clientOptions);
+    await mongoose.connection.db.admin().command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
+  } finally {
+    // Ensures that the client will close when you finish/error
+   // await mongoose.disconnect();
+  }
+}
+run().catch(console.dir);
 
 app.use(
   cors({
